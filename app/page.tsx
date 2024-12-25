@@ -4,31 +4,23 @@ import React, { useState } from 'react';
 import { Music } from 'lucide-react';
 
 export default function Home() {
-  // Exercise content - add or modify words here
   const words = [
     { word: 'ease', syllables: 1, note: 'one syllable' },
     { word: 'easy', syllables: 2, note: 'two syllables' },
     { word: 'easily', syllables: 3, note: 'three syllables' }
   ];
 
-  // State management
   const [currentWord, setCurrentWord] = useState(0);
-  const [userGuess, setUserGuess] = useState(null);
+  const [userGuess, setUserGuess] = useState<number | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [score, setScore] = useState(0);
 
-  // Handle user's syllable guess
-  const handleGuess = (syllableCount) => {
+  const handleGuess = (syllableCount: number) => {
     if (!showAnswer) {
       setUserGuess(syllableCount);
-      if (syllableCount === words[currentWord].syllables) {
-        setScore(prev => prev + 1);
-      }
       setShowAnswer(true);
     }
   };
 
-  // Move to next word
   const nextWord = () => {
     if (currentWord < words.length - 1) {
       setCurrentWord(prev => prev + 1);
@@ -40,7 +32,6 @@ export default function Home() {
   return (
     <main className="min-h-screen p-4 bg-gray-50">
       <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        {/* Exercise header */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-blue-600">
             Exercise 1.A: Basic Syllable Counting (v1.0)
@@ -50,12 +41,9 @@ export default function Home() {
           </p>
         </div>
         
-        {/* Main exercise area */}
         <div className="text-center mb-6">
-          {/* Display current word */}
           <div className="text-4xl font-bold mb-4">{words[currentWord].word}</div>
           
-          {/* Syllable choice buttons */}
           <div className="flex justify-center gap-4 mb-4">
             {[1, 2, 3].map(num => (
               <button
@@ -76,7 +64,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Feedback area */}
           {showAnswer && (
             <div className={`p-4 rounded-lg ${
               userGuess === words[currentWord].syllables
@@ -92,7 +79,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* Music of English pattern */}
         <div className="mb-6 p-4 bg-purple-50 rounded-lg">
           <Music className="inline-block w-5 h-5 mr-2 text-purple-600" />
           <span className="font-medium text-purple-800">
@@ -102,7 +88,6 @@ export default function Home() {
           </span>
         </div>
 
-        {/* Navigation button */}
         {showAnswer && currentWord < words.length - 1 && (
           <button
             onClick={nextWord}
